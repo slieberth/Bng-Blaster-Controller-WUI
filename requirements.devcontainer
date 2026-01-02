@@ -1,0 +1,6 @@
+httpx
+netaddr
+pytest
+pytest-html
+pytest-cov
+reflex

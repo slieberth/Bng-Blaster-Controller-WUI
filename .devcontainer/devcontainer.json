@@ -1,0 +1,28 @@
+{
+  "name": "bng blaster controller wui devcontainer",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "overrideCommand": false,
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "terminal.integrated.shell.linux": "/bin/bash"
+      },
+      "extensions": ["ms-python.python"]
+    }
+  },
+  "forwardPorts": [3001, 8001, 4711],
+  "portsAttributes": {
+    "3001": { "label": "Reflex WUI", "onAutoForward": "openBrowser" },
+    "8001": { "label": "Reflex Backend" },
+    "4711": { "label": "bng Blaster API" }
+  },
+    "mounts": [
+    "source=devcontainer-bash-history,target=/commandhistory,type=volume"
+  ],
+  "containerEnv": {
+    "HISTFILE": "/commandhistory/.bash_history"
+  }
+}

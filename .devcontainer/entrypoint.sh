@@ -8,17 +8,10 @@ set -euo pipefail
 if ip link add veth1.1 type veth peer name veth1.2 2>/dev/null; then
     ip link set veth1.1 up
     ip link set veth1.2 up
-
-    # ip addr flush dev veth1.1
-    # ip addr flush dev veth1.2
-    # ip -6 addr flush dev veth1.1
-    # ip -6 addr flush dev veth1.2
-
     echo "[entrypoint] veth interfaces ready"
 else
     echo "[entrypoint] WARNING: cannot create veth interfaces (missing NET_ADMIN?)"
 fi
-
 
 # ------------------------------------------------------------
 # Persistent bash history

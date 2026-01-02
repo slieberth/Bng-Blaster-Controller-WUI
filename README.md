@@ -66,9 +66,9 @@ The WUI directly implements the controller’s `Repository` interface logic with
 
 ## 2.2 Config Builder
 
-The Config Builder is derived from and constrained by the `RunningConfig` data model.
+The Config Builder is derived from and constrained by the Bng Blaster config data model.
 
-Its primary goal is to **simplify the creation of valid BNG Blaster configurations** by exposing BNG Blaster–specific options through structured UI elements rather than free-form input.
+Its primary goal is to **simplify the creation of valid BNG Blaster configurations** by exposing BNG Blaster–specific options through structured UI elements rather than free-form yaml input.
 
 ### Design Principles
 
@@ -85,7 +85,7 @@ Its primary goal is to **simplify the creation of valid BNG Blaster configuratio
 
 All selectable UI options are defined in a **dedicated BBL-WUI configuration file (YAML)**.
 
-This file acts as a **UI definition catalog**, not a test configuration.
+This file acts as a **UI definition catalog**.
 
 It defines:
 

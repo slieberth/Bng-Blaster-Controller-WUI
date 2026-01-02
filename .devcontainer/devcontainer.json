@@ -13,13 +13,13 @@
       "extensions": ["ms-python.python"]
     }
   },
-  "forwardPorts": [3001, 8001, 4711],
+  "forwardPorts": [4712, 4713, 4711],
   "portsAttributes": {
-    "3001": { "label": "Reflex WUI", "onAutoForward": "openBrowser" },
-    "8001": { "label": "Reflex Backend" },
-    "4711": { "label": "bng Blaster API" }
+    "4712": { "label": "Reflex Frontend", "onAutoForward": "openBrowser" },
+    "4713": { "label": "Reflex Backend" },
+    "4711": { "label": "bngblasterctrl API" }
   },
-    "mounts": [
+  "mounts": [
     "source=devcontainer-bash-history,target=/commandhistory,type=volume"
   ],
   "containerEnv": {

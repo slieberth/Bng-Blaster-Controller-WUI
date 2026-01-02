@@ -1,0 +1,48 @@
+#!/bin/bash
+set -euo pipefail
+
+# ------------------------------------------------------------
+# Persistent bash history
+# ------------------------------------------------------------
+export HISTFILE=/commandhistory/.bash_history
+export HISTSIZE=100000
+export HISTFILESIZE=200000
+shopt -s histappend
+PROMPT_COMMAND="history -a; history -n"
+
+# ------------------------------------------------------------
+# Start bngblaster controller
+# ------------------------------------------------------------
+BNG_CTRL_BIN="/usr/local/bin/bngblasterctrl"
+BNG_CTRL_PORT="4711"
+BNG_CTRL_LOGFILE="/tmp/bngblasterctrl.log"
+
+if command -v "$BNG_CTRL_BIN" >/dev/null 2>&1; then
+    echo "[entrypoint] Starting bngblaster controller on port ${BNG_CTRL_PORT}..."
+    "$BNG_CTRL_BIN" -addr ":${BNG_CTRL_PORT}" > "$BNG_CTRL_LOGFILE" 2>&1 &
+    BNG_CTRL_PID=$!
+else
+    echo "[entrypoint] WARNING: bngblaster controller binary not found"
+    BNG_CTRL_PID=""
+fi
+
+# ------------------------------------------------------------
+# Graceful shutdown
+# ------------------------------------------------------------
+term_handler() {
+    echo "[entrypoint] Caught termination signal"
+    if [ -n "${BNG_CTRL_PID}" ] && kill -0 "${BNG_CTRL_PID}" 2>/dev/null; then
+        echo "[entrypoint] Stopping bngblaster controller (PID ${BNG_CTRL_PID})"
+        kill "${BNG_CTRL_PID}"
+        wait "${BNG_CTRL_PID}" || true
+    fi
+    exit 0
+}
+
+trap term_handler SIGTERM SIGINT
+
+# ------------------------------------------------------------
+# Keep container alive
+# ------------------------------------------------------------
+sleep infinity &
+wait $!

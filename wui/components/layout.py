@@ -1,19 +1,20 @@
+# wui/components/layout.py
 import reflex as rx
 
-def nav() -> rx.Component:
-    return rx.hstack(
-        rx.link("Instances", href="/instances"),
-        rx.link("Configs", href="/configs"),
-        rx.link("Settings", href="/settings"),
-        spacing="4",
-        padding="1rem",
-        border_bottom="1px solid #ddd",
-    )
 
-def page(content: rx.Component) -> rx.Component:
-    return rx.vstack(
-        nav(),
-        rx.box(content, padding="1rem", width="100%"),
+def page_layout(*children: rx.Component) -> rx.Component:
+    """Shared page wrapper used by all pages.
+
+    - Keeps page styling consistent.
+    - Central place for header/nav/footer later.
+    """
+    return rx.center(
+        rx.box(
+            *children,
+            width="100%",
+            max_width="900px",
+            padding="2rem",
+        ),
         width="100%",
         min_height="100vh",
     )

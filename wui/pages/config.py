@@ -1,16 +1,14 @@
-"""Config builder page."""
-
 import reflex as rx
 
-
+@rx.page(route="/config-builder", title="Config Builder")
 def config_page() -> rx.Component:
-    """Guided configuration builder (placeholder)."""
-    return rx.container(
+    return rx.center(
         rx.vstack(
-            rx.heading("Config Builder", size="6"),
-            rx.text("TODO: YAML/JSON driven UI options + validation"),
+            rx.heading("Config Builder", size="7"),
+            rx.text("Coming soon."),
             rx.link("Back to Home", href="/"),
-            spacing="3",
+            spacing="4",
+            align="center",
         ),
-        padding="2em",
+        height="80vh",
     )
